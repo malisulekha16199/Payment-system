@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { Appbar } from "../Components/Appbar";
+import { Appbar } from "../Components/AppBar";
 import { Balance } from "../Components/Balance";
 import { Users } from "../Components/Users";
 import { balance } from "../Data/Data";
