@@ -1,5 +1,5 @@
 import { Heading } from "../Components/Heading";
-import { SubHeading } from "../Components/subHeading";
+import { SubHeading } from "../Components/SubHeading";
 import { Button } from "../Components/Button";
 import { BottomWarn } from "../Components/BottomWarn";
 import { InputBox } from "../Components/InputBox";
