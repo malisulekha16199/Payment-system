@@ -70,6 +70,8 @@ export const SignUp = () => {
         );
       }
       setStatus("Error");
+    } finally {
+      setEmail(""), setPwd("");
     }
   }
 

@@ -67,6 +67,8 @@ export const SignIn = () => {
         );
       }
       setStatus("Error");
+    } finally {
+      setEmail(""), setPwd("");
     }
   }
 
