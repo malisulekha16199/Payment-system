@@ -21,7 +21,6 @@ router.post("/SignIn", async (req, res) => {
     email: email,
     password: password,
   });
-  console.log(user);
 
   if (!user) {
     return res.status(400).json({
@@ -33,7 +32,6 @@ router.post("/SignIn", async (req, res) => {
     { userID: user._id, userfname: user.firstname },
     JWT_SECRET
   );
-  console.log(token);
   res.json({
     message: "Login successful",
     token: token,
@@ -98,7 +96,6 @@ router.put("/", authMiddleware, async (req, res) => {
 // Get Users Route
 router.get("/bulk", authMiddleware, async (req, res) => {
   const filter = req.query.filter;
-  console.log(req.userID);
   const users = await UserList.find({
     _id: { $ne: req.userID }, // Exclude the user with the req.userID
     $or: [

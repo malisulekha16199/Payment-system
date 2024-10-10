@@ -8,7 +8,7 @@ import { users, filter } from "../Data/Data";
 export function Users() {
   const [usersList, setUsersList] = useRecoilState(users);
   const [filterTxt, setFilter] = useRecoilState(filter);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/v1/user/bulk?filter=" + filterTxt, {
@@ -19,8 +19,13 @@ export function Users() {
       .then((response) => {
         setUsersList(response.data.users);
       })
-      .catch(() => {
-        navigate("/sign-in");
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 401 || error.response.status === 403) {
+            localStorage.removeItem("token"); // Clear the token from local storage
+            navigate("/sign-in"); // Redirect to sign-in page
+          }
+        }
       });
   }, [filterTxt]);
 

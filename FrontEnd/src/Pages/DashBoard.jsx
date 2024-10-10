@@ -5,8 +5,12 @@ import { Users } from "../Components/Users";
 import { balance } from "../Data/Data";
 import { useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 export function DashBoard() {
   const [bal, setBalance] = useRecoilState(balance);
+  const navigate = useNavigate();
+
   async function getVal() {
     try {
       // Get token from localStorage (or sessionStorage)
@@ -28,9 +32,16 @@ export function DashBoard() {
       );
 
       // Set the fetched balance in Recoil state d
-      setBalance(response.data.balance);
+      if (response.status === 200) {
+        setBalance(response.data.balance);
+      }
     } catch (error) {
-      console.error("Failed to fetch balance:", error);
+      if (error.response) {
+        if (error.response.status === 401 || error.response.status === 403) {
+          localStorage.removeItem("token"); // Clear the token from local storage
+          navigate("/sign-in"); // Redirect to sign-in page
+        }
+      }
     }
   }
 

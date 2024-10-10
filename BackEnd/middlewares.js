@@ -4,8 +4,8 @@ const { JWT_SECRET } = require("./config");
 function authMiddleware(req, res, next) {
   const authHead = req.headers.authorization;
   if (!authHead || !authHead.startsWith("Bearer ")) {
-    res.status(403).json({
-      message: "No valid tokan",
+    return res.status(403).json({
+      message: "No valid token",
     });
   }
 
