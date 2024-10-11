@@ -10,6 +10,7 @@ export const Appbar = () => {
     setMenuVisible((prev) => !prev);
   };
   useEffect(() => {
+    setFName(localStorage.getItem("fName"));
     setChr(FName[0]); // Set the first letter of fName in the state
   }, [FName]);
 
