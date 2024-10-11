@@ -69,28 +69,84 @@ router.post("/SignUp", async (req, res) => {
     { userID: userID, userfname: dbUser.firstname },
     JWT_SECRET
   );
-  console.log(token);
+
   res.json({
     message: "User is created successfully",
     token: token,
   });
 });
 
-// Update User Route
-router.put("/", authMiddleware, async (req, res) => {
-  const success = updateUser.safeParse(req.body);
+// Update Profile Route (first name, last name, and password)
+router.put("/updateProfile", authMiddleware, async (req, res) => {
+  const { firstname, lastname, password } = req.body;
 
-  if (!success.success) {
+  // Check if the required fields are present
+  if (!firstname || !lastname || !password) {
     return res.status(400).json({
-      message: "Please provide valid data",
+      message: "Please provide first name, last name, and password.",
     });
   }
 
-  await UserList.updateOne({ email: req.body.email }, req.body);
+  // Update only the allowed fields (firstname, lastname, and password)
+  try {
+    const updatedUser = await UserList.updateOne(
+      { _id: req.userID }, // Match the authenticated user
+      {
+        $set: {
+          firstname: firstname,
+          lastname: lastname,
+          password: password,
+        },
+      }
+    );
 
-  res.json({
-    message: "User updated successfully.",
-  });
+    if (updatedUser.nModified === 0) {
+      return res.status(400).json({
+        message: "No changes were made to the profile.",
+      });
+    }
+
+    res.json({
+      message: "Profile updated successfully.",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "An error occurred while updating the profile.",
+    });
+  }
+});
+
+// Get Profile Info Route
+router.get("/profile", authMiddleware, async (req, res) => {
+  try {
+    // Find the user by the userID from the token
+    const user = await UserList.findById(req.userID, {
+      firstname: 1,
+      lastname: 1,
+      email: 1,
+      password: 1,
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    // Send the user's profile information
+    res.json({
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: user.password,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "An error occurred while fetching the profile.",
+    });
+  }
 });
 
 // Get Users Route

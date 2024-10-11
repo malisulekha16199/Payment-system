@@ -24,7 +24,10 @@ const Password = atom({
   key: "Password",
   default: "",
 });
-
+const fName = atom({
+  key: "fName",
+  default: "",
+});
 const balance = atom({
   key: "balance",
   default: 0,
@@ -34,4 +37,14 @@ const Amount = atom({
   key: "Amount",
   default: 0,
 });
-export { users, filter, FirstName, LastName, Email, Password, balance, Amount };
+export {
+  users,
+  filter,
+  FirstName,
+  LastName,
+  Email,
+  Password,
+  balance,
+  Amount,
+  fName,
+};

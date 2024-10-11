@@ -6,6 +6,7 @@ import { SignUp } from "./Pages/SignUp";
 import { SignIn } from "./Pages/SignIn";
 import { DashBoard } from "./Pages/DashBoard";
 import { SendMoney } from "./Pages/SendMoney";
+import { UpdateProf } from "./Pages/UpdateProf";
 function App() {
   const [count, setCount] = useState(0);
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/send-money" element={<SendMoney />} />
+            <Route path="/update-prof" element={<UpdateProf />} />
             <Route path="/*" element={<h1>Not Found Component</h1>} />
           </Routes>
         </BrowserRouter>

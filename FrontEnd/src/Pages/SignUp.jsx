@@ -137,7 +137,7 @@ export const SignUp = () => {
           {signUpStatus === "Error" && (
             <p className="text-red-500 text-center mt-4">{errorMsg}</p>
           )}
-          <div className="pt-4">
+          <div>
             <Button label={"Sign up"} onClick={onBtnClick} />
           </div>
           <BottomWarn
