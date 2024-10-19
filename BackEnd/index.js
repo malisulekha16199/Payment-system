@@ -5,7 +5,7 @@ const rootRouter = require("./Routes/index");
 
 const app = express();
 
-app.use(cors());
+app.options('*', cors());  // Allow all OPTIONS requests
 app.use(express.json());
 
 app.use("/api/v1", rootRouter);
