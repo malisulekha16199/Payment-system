@@ -6,6 +6,7 @@ import { balance } from "../Data/Data";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "../../config";
 
 export function DashBoard() {
   const [bal, setBalance] = useRecoilState(balance);
@@ -23,7 +24,7 @@ export function DashBoard() {
 
       // Make the API request to get the balance
       const response = await axios.get(
-        "http://localhost:3000/api/v1/account/balance",
+        `${backendUrl}/api/v1/account/balance`,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),

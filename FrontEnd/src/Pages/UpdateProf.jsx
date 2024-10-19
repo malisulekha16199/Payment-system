@@ -8,6 +8,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { fName } from "../Data/Data";
+import { backendUrl } from "../../config";
 
 export function UpdateProf() {
   const [frstName, setFname] = useState("");
@@ -21,7 +22,7 @@ export function UpdateProf() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/user/Profile", {
+      .get(`${backendUrl}/api/v1/user/Profile`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -56,7 +57,7 @@ export function UpdateProf() {
       }
 
       const response = await axios.put(
-        "http://localhost:3000/api/v1/user/updateProfile",
+        `${backendUrl}/api/v1/user/updateProfile`,
         { firstname: frstName, lastname: lName, password: pwd },
         {
           headers: {

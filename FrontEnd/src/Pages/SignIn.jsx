@@ -10,6 +10,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useState, useEffect } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { backendUrl } from "../../config";
 
 export const SignIn = () => {
   const [email, setEmail] = useRecoilState(Email);
@@ -37,13 +38,10 @@ export const SignIn = () => {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
-        {
-          email: email,
-          password: pwd,
-        }
-      );
+      const response = await axios.post(`${backendUrl}/api/v1/user/signin`, {
+        email: email,
+        password: pwd,
+      });
 
       localStorage.setItem("token", response.data.token);
       // Decoding the JWT token

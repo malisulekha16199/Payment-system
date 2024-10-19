@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "./Button";
 import { InputBox } from "./InputBox";
 import { users, filter } from "../Data/Data";
+import { backendUrl } from "../../config";
 export function Users() {
   const [usersList, setUsersList] = useRecoilState(users);
   const [filterTxt, setFilter] = useRecoilState(filter);
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/user/bulk?filter=" + filterTxt, {
+      .get(`${backendUrl}/api/v1/user/bulk?filter=` + filterTxt, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
