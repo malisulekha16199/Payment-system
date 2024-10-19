@@ -5,7 +5,14 @@ const rootRouter = require("./Routes/index");
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://payment-system-flms.vercel.app/',  // Replace with your Vercel domain
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/v1", rootRouter);
